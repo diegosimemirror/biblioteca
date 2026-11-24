@@ -1,0 +1,9 @@
+# Datos de la biblioteca: no se suben porque contienen el listado personal de libros
+datos/
+*.csv
+*.tsv
+*.xlsx
+
+# Archivos de Python
+__pycache__/
+*.pyc

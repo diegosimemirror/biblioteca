@@ -1,0 +1,3 @@
+pandas        # tablas, uniones y exportación a Excel
+openpyxl      # formato del Excel del catálogo
+pymupdf       # leer metadatos y texto de PDF, EPUB y MOBI

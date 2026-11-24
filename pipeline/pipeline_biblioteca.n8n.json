@@ -1,0 +1,257 @@
+{
+  "name": "Biblioteca · ordenar con Dewey",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "b5764f1a-678e-4a2b-a47e-f9b6e276c806",
+      "name": "Inicio manual",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "cd /d \"C:\\Users\\Principal\\Documents\\GitHub\\biblioteca\" && \"C:\\Users\\Principal\\anaconda3\\python.exe\" b1_explorar_biblioteca.py"
+      },
+      "id": "a2f433e5-6458-4dd3-a35e-4bb74c5eae92",
+      "name": "B1 · Explorar",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        220,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "cd /d \"C:\\Users\\Principal\\Documents\\GitHub\\biblioteca\" && \"C:\\Users\\Principal\\anaconda3\\python.exe\" b2_fichas.py"
+      },
+      "id": "39475c70-73f5-438b-b40a-f57002e94ef6",
+      "name": "B2 · Separar y fichar",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        440,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\Principal\\Documents\\GitHub\\biblioteca\\b2c_clasificar_con_claude.ps1\""
+      },
+      "id": "5a29bf5b-bdca-4c17-8ff0-86e317d3642f",
+      "name": "Clasificar Dewey (Claude ×3)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        660,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "cd /d \"C:\\Users\\Principal\\Documents\\GitHub\\biblioteca\" && \"C:\\Users\\Principal\\anaconda3\\python.exe\" b3_catalogo.py"
+      },
+      "id": "0b400439-ae5d-4f38-a401-de240b092e53",
+      "name": "B3 · Catálogo y plan",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        880,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "cd /d \"C:\\Users\\Principal\\Documents\\GitHub\\biblioteca\" && \"C:\\Users\\Principal\\anaconda3\\python.exe\" b3b_control.py && \"C:\\Users\\Principal\\anaconda3\\python.exe\" b3c_coherencia.py"
+      },
+      "id": "5d10b65a-760c-4788-a03a-840e903cf082",
+      "name": "Control de calidad",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "resume": "webhook",
+        "options": {}
+      },
+      "id": "21310188-e9fe-4c1a-8974-9fd414507fe0",
+      "name": "Esperar aprobación",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1320,
+        300
+      ],
+      "webhookId": "14e04a24-45cd-438d-a92f-2ae3d9ff6745"
+    },
+    {
+      "parameters": {
+        "command": "cd /d \"C:\\Users\\Principal\\Documents\\GitHub\\biblioteca\" && \"C:\\Users\\Principal\\anaconda3\\python.exe\" b4_ejecutar.py"
+      },
+      "id": "c72591d5-7765-4f7c-95b6-86a3d07ff825",
+      "name": "B4 · Mover y renombrar",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1540,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Biblioteca ordenada como una biblioteca universitaria\nCada libro recibe una **signatura en el nombre**:\n`Dewey_Apellido_Año_Título.ext` (sin espacios ni tildes).\n\nTodo queda en una sola carpeta, más `revisar/` y `_otros/`.\nOrdenar por nombre = recorrer el estante: tema → autor.",
+        "height": 240,
+        "width": 640,
+        "color": 7
+      },
+      "id": "cf62a0c3-0378-47d2-b96b-96b1108b5c96",
+      "name": "Nota: qué hace",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        -20
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Punto de control humano\nB1–B3 **no tocan** la biblioteca: solo leen y arman el catálogo (`datos/catalogo_biblioteca.xlsx`) y el plan de movimientos.\n\nRevisa el Excel y reanuda el flujo llamando a la URL de este nodo *Wait*. Recién entonces B4 mueve y renombra.",
+        "height": 240,
+        "width": 640,
+        "color": 3
+      },
+      "id": "a25b7393-64ed-41cc-95f5-6a2686e62ec0",
+      "name": "Nota: aprobación",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1060,
+        -20
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### B5 · Deshacer\nB4 anota cada movimiento en `datos/registro_movimientos.csv`.\nPara volver todo atrás: `python b5_deshacer.py`",
+        "height": 160,
+        "width": 320,
+        "color": 5
+      },
+      "id": "c79374fe-b67a-4a13-bfb1-f7082d194c78",
+      "name": "Nota: deshacer",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1460,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Requisitos\nn8n instalado en la misma PC (el nodo *Execute Command* debe estar habilitado), Python con `requirements.txt` y Claude Code (`claude`) con sesión iniciada. Ajusta las rutas de los comandos si clonaste el repositorio en otro lugar.",
+        "height": 160,
+        "width": 640,
+        "color": 5
+      },
+      "id": "e9759a55-340e-4dd8-a29d-533ddca2233d",
+      "name": "Nota: requisitos",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        480
+      ]
+    }
+  ],
+  "connections": {
+    "Inicio manual": {
+      "main": [
+        [
+          {
+            "node": "B1 · Explorar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "B1 · Explorar": {
+      "main": [
+        [
+          {
+            "node": "B2 · Separar y fichar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "B2 · Separar y fichar": {
+      "main": [
+        [
+          {
+            "node": "Clasificar Dewey (Claude ×3)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clasificar Dewey (Claude ×3)": {
+      "main": [
+        [
+          {
+            "node": "B3 · Catálogo y plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "B3 · Catálogo y plan": {
+      "main": [
+        [
+          {
+            "node": "Control de calidad",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Control de calidad": {
+      "main": [
+        [
+          {
+            "node": "Esperar aprobación",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Esperar aprobación": {
+      "main": [
+        [
+          {
+            "node": "B4 · Mover y renombrar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {}
+}
