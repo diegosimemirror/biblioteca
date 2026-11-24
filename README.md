@@ -19,8 +19,8 @@ Así, al ordenar la carpeta por nombre, se recorre el «estante»:
 ```
 184_Plato_1997_The-Dialogues-of-Plato-4.pdf
 186_Halfwassen_2004_Plotin-und-der-Neuplatonismus.pdf
-193_Vieweg_2020_Idealism-of-Freedom.pdf
-658_Morris_2011_Oxford-Handbook-of-Project-Management.pdf
+193_Vieweg_2020_The-Idealism-of-Freedom.pdf
+658_Morris_2011_The-Oxford-Handbook-of-Project-Management.pdf
 833_Kafka_2009_The-Castle.pdf
 863_Borges_sf_El-libro-de-arena.pdf
 ```

@@ -16,7 +16,7 @@
   <rect x="40" y="28" width="760" height="150" rx="6" fill="#fff6d9" stroke="#f1dd9b"/>
   <text x="62" y="62" font-size="17" font-weight="700" fill="#3f3f46">Biblioteca ordenada como una biblioteca universitaria</text>
   <text x="62" y="92" font-size="14" fill="#52525b">Cada libro recibe una signatura en el nombre del archivo:</text>
-  <text x="62" y="116" font-size="14" font-family="Consolas, 'Courier New', monospace" fill="#18181b">Dewey_Apellido_Año_Título.ext   →   193_Vieweg_2020_Idealism-of-Freedom.pdf</text>
+  <text x="62" y="116" font-size="14" font-family="Consolas, 'Courier New', monospace" fill="#18181b">Dewey_Apellido_Año_Título.ext   →   193_Vieweg_2020_The-Idealism-of-Freedom.pdf</text>
   <text x="62" y="146" font-size="14" fill="#52525b">Una sola carpeta (sin subcarpetas ni espacios): ordenar por nombre = recorrer el estante, tema → autor.</text>
 
   <rect x="840" y="28" width="760" height="150" rx="6" fill="#ece9ff" stroke="#cfc7ff"/>
